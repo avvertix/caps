@@ -1,6 +1,7 @@
 /*! caps-locker - v0.0.1 - 2015-09-21
 * Copyright (c) 2015 Alessio Vertemati; Licensed MIT */
 /* global module */
+/* global console */
 
 /**
  * Caps Locker.
@@ -12,7 +13,7 @@
  */
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
-        // AMD. Register as an anonymous module.
+        // AMD
         define(['caps-locker'], factory);
     } else if (typeof module === "object" && typeof module.exports === "object") {
         // CommonJS
@@ -42,7 +43,7 @@
             * @default false
             * @type {boolean}
             */
-            capslock: false
+            capslock: true
         },
         _instance = 0;
 
@@ -59,7 +60,38 @@
     
     */
     
+    /** Process the key event on the textarea/input */
+    function _handleKey(evt){
+        
+        var target = evt.target || evt.toElement;
+        
+        // console.log('_handleKey this:', this, 'evt:', evt, 'target:', target);
+            
+            // TODO: ignore if Alt+Ctrl+Meta modifiers
+            if(evt.altKey || evt.ctrlKey || evt.metaKey){
+                console.info('Modifiers');
+                return false;
+            }
+            
+            if( evt.keyCode === 16 || ( evt.keyCode === 20 && this.options.capslock ) ){
+                //shift or CapsLock
+                var selection = window.getSelection();
+                
+                var newText = exports.capitalize(selection.toString());
+                
+                target.value = target.value.substring(0, target.selectionStart) + newText + target.value.substring(target.selectionEnd);  
+            }
+        
+    }
+    
+    
+    
     /**
+     * CapLocker constructor
+     * 
+     * @constructor
+     * @parameter {DOMElement} el The DOMElement to attach the CapsLocker behavior to
+     * @parameter {Object} options
      * @return CapsLocker
      */
     function CapsLocker(el, options){
@@ -72,7 +104,15 @@
         
         /** This instance options */
         this.options = options;
+
+        // Check if el is textarea or input text
+        if(!(el instanceof HTMLTextAreaElement) && !(el instanceof HTMLInputElement)){
+            throw new TypeError('CapsLocker currently supports only textarea and input text elements');
+        }
         
+        this.target.addEventListener( this.options.keypress ? 'keypress' : 'keyup', _handleKey.bind(this), false);
+        
+        console.log(el, this);
         
     }
     
@@ -127,21 +167,40 @@
     
 
     /**
-     * Attaches a CapsLocker instance to an HTMLElement.
+     * Attaches a CapsLocker instance to a DOMElement.
      */
-    exports.attach = function(element, options){
+    exports.attach = function(selector, options){
+        
+        
+       // HANDLE: selector = "" || null || undefined || false
+        if ( !selector ) {
+            throw new TypeError("Please specify a selector or an HTMLElement. For supported selectors refer to document.querySelector");
+        }
+        
+        // Handle strings
+        if ( typeof selector === "string" ) {
+            selector = document.querySelector(selector);
+        }
+        // HANDLE: selector = DOMElement
+        else if( selector.nodeType ){
+            selector = selector;
+        }
+        else{
+            throw new TypeError("Unknown selector type, sorry :(");
+        }
+        
        
-       options = options || {};
-       
-       options = _objectAssign(_defaults, options);
-
-       return new CapsLocker(element, options);
+        options = options || {};
+        
+        options = _objectAssign(_defaults, options);
+        
+        return new CapsLocker(selector, options);
     };
 
     
     /**
      * Capitalize a text.
-     * Transform the text from lower case to upper case, while stepping though the first letter capitalization
+     * Transform the text from lower case to upper case, while stepping through the first letter capitalization
      * 
      * Internals:
      * 
