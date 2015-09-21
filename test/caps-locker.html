@@ -1,0 +1,34 @@
+<!doctype html>
+  <html>
+  <head>
+    <meta charset="utf-8">
+    <title>CapsLocker Test Suite</title>
+    <!-- Load local QUnit. -->
+    <link rel="stylesheet" href="../bower_components/qunit/qunit/qunit.css" media="screen">
+    <script src="../bower_components/qunit/qunit/qunit.js"></script>
+    <!-- Load local lib and tests. -->
+    <script src="../src/caps-locker.js"></script>
+    <script src="caps-locker_test.js"></script>
+  </head>
+  <body>
+    <div id="qunit"></div>
+    <div id=""> 
+      <!--qunit-fixture-->
+      
+      <p id="paragraph">
+        <textarea name="textarea" id="textarea" cols="30" rows="10">example text</textarea>
+        <textarea name="textarea2" id="textarea2" cols="30" rows="10">example text</textarea>
+        <textarea name="textarea3" id="textarea3" cols="30" rows="10">example text</textarea>
+      </p>
+      
+      <p>
+        <textarea name="main" id="main" cols="30" rows="10">example text</textarea>
+      </p>
+      
+      <p>
+        <input type="text" name="text_input" id="text_input" value="Some example TEXT">
+      </p>
+
+    </div>
+  </body>
+</html>

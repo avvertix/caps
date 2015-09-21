@@ -1,0 +1,8 @@
+{
+  "name": "caps-locker",
+  "version": "0.0.1",
+  "dependencies": {},
+  "devDependencies": {
+    "qunit": "~1.12.0"
+  }
+}
