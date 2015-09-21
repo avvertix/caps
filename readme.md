@@ -71,24 +71,6 @@ The supported options are:
 | keypress | boolean | `false`       | Listen for keypress events instead of keyup. Set to true to listen for keypress events instead of keyup events. |
 | capslock | boolean | `true`        | Listen for CapLock key. Set to true to listen for accepting the capslock key usage                              |
 
-/**
-* 
-* Set to true to listen for keypress events instead of keyup events.
-* 
-* @default false
-* @type {boolean}
-*/
-: false,
-/**
-* Listen for CapLock key.
-* Set to true to listen for the capslock key usage
-* 
-* @default false
-* @type {boolean}
-*/
-capslock: true
-
-
 
 ### `Caps.capitalize(text: string, capsLockPressed: boolean)`
 
