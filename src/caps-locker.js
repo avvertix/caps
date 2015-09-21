@@ -199,7 +199,7 @@
     
     /**
      * Capitalize a text.
-     * Transform the text from lower case to upper case, while stepping though the first letter capitalization
+     * Transform the text from lower case to upper case, while stepping through the first letter capitalization
      * 
      * Internals:
      * 
