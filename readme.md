@@ -34,7 +34,7 @@ Now when you select the text in that `#textarea` you can press the Shift key to 
 
 ## Current supported Browsers
 
-Chrome (latest), Firefox (latest), Opera (latest)
+Chrome (latest), Firefox (latest), Edge (on Win10 build 10240)
 
 ## API
 
