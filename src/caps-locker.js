@@ -76,12 +76,19 @@
                 
                 
                 if(target.selectionStart < target.selectionEnd){
+                    
+                    var start = target.selectionStart,
+                        end = target.selectionEnd;
                 
-                    var selection = target.value.substring(target.selectionStart, target.selectionEnd);
+                    var selection = target.value.substring(start, end);
                     
-                    var newText = exports.capitalize(selection.toString(), evt.keyCode === 20 && this.options.capslock);
+                    var newText = exports.capitalize(selection, evt.keyCode === 20 && this.options.capslock);
                     
-                    target.value = target.value.substring(0, target.selectionStart) + newText + target.value.substring(target.selectionEnd);
+                    target.value = target.value.substring(0, start) + newText + target.value.substring(end);
+                    
+                    target.selectionStart = start;
+                    target.selectionEnd = end;
+                    target.focus();
                     
                     
                 }  
