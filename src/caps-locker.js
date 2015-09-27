@@ -79,9 +79,11 @@
                 
                     var selection = target.value.substring(target.selectionStart, target.selectionEnd);
                     
-                    var newText = exports.capitalize(selection.toString(), this.options.capslock);
+                    var newText = exports.capitalize(selection.toString(), evt.keyCode === 20 && this.options.capslock);
                     
                     target.value = target.value.substring(0, target.selectionStart) + newText + target.value.substring(target.selectionEnd);
+                    
+                    
                 }  
             }
         
