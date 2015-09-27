@@ -73,12 +73,16 @@
             }
             
             if( evt.keyCode === 16 || ( evt.keyCode === 20 && this.options.capslock ) ){
-                //shift or CapsLock
-                var selection = window.getSelection();
                 
-                var newText = exports.capitalize(selection.toString());
                 
-                target.value = target.value.substring(0, target.selectionStart) + newText + target.value.substring(target.selectionEnd);  
+                if(target.selectionStart < target.selectionEnd){
+                
+                    var selection = target.value.substring(target.selectionStart, target.selectionEnd);
+                    
+                    var newText = exports.capitalize(selection.toString());
+                    
+                    target.value = target.value.substring(0, target.selectionStart) + newText + target.value.substring(target.selectionEnd);
+                }  
             }
         
     }
