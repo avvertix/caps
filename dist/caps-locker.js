@@ -1,4 +1,4 @@
-/*! caps-locker - v0.0.1 - 2015-09-21
+/*! caps-locker - v0.0.1 - 2015-09-27
 * Copyright (c) 2015 Alessio Vertemati; Licensed MIT */
 /* global module */
 /* global console */
@@ -74,12 +74,25 @@
             }
             
             if( evt.keyCode === 16 || ( evt.keyCode === 20 && this.options.capslock ) ){
-                //shift or CapsLock
-                var selection = window.getSelection();
                 
-                var newText = exports.capitalize(selection.toString());
                 
-                target.value = target.value.substring(0, target.selectionStart) + newText + target.value.substring(target.selectionEnd);  
+                if(target.selectionStart < target.selectionEnd){
+                    
+                    var start = target.selectionStart,
+                        end = target.selectionEnd;
+                
+                    var selection = target.value.substring(start, end);
+                    
+                    var newText = exports.capitalize(selection, evt.keyCode === 20 && this.options.capslock);
+                    
+                    target.value = target.value.substring(0, start) + newText + target.value.substring(end);
+                    
+                    target.selectionStart = start;
+                    target.selectionEnd = end;
+                    target.focus();
+                    
+                    
+                }  
             }
         
     }
